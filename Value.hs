@@ -7,15 +7,19 @@ import Tools
 
 
 --
-value :: (OptList_All1,OptList_All2)->(OptList_All1,OptList_All2)->Exp->Exp
+value :: (OptList a [Char] [Exp->Exp],OptList a [Char] [Exp->Exp->Exp])->(OptList a [Char] [Exp->Exp],OptList a [Char] [Exp->Exp->Exp])->Exp->Exp
 value _ _ (Num value)=Num value
 value _ _ all@(Complex _)=all
 value all list@((list1:_),(list2:_)) (Exp (optexp@(Opt opt):exp:rest))
-    |belong list1 opt =value all list (Exp (((getopt list1 opt) (value all all exp)):rest))
+    |not (nullif optlist) =value all list (Exp (((car optlist) (value all all exp)):rest))
     |otherwise =value all (next list) (Exp (optexp:(value all list (Exp (exp:rest))):[]))
+        where optlist=(get_opt list1 opt)
+              
 value all list@((list1:_),(list2:_)) (Exp (x:optexp@(Opt opt):y:rest))
-    |belong list1 opt =value all list (Exp (((getopt list2 opt) (value all all x) (value all all y)):rest))
+    |not (nullif optlist) =value all list (Exp (((car optlist) (value all all x) (value all all y)):rest))
     |otherwise =value all (next list) (Exp (x:optexp:(value all list (Exp (y:rest))):[]))
+        where optlist=(get_opt list2 opt)
+              
 
 
 

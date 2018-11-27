@@ -1,14 +1,22 @@
 module DataType
 (   
     Exp(..)
-   ,OptList1(..)
-   ,OptList2(..)
-   ,OptList_All1
-   ,OptList_All2
+   ,ItemList(..)
+   ,OptList
+   --,OptList1(..)
+   --,OptList2(..)
+   --,OptList_All1
+   --,OptList_All2
 )where
 data Exp = Opt [Char] | Exp [Exp] | Num Double | Complex [Exp]
     deriving (Show,Eq)
-data OptList1 = OptList1 Int [([Char],(Exp->Exp))]
-data OptList2 = OptList2 Int [([Char],(Exp->Exp->Exp))]
-type OptList_All1=[OptList1]
-type OptList_All2=[OptList2]
+
+data ItemList a b c=ItemList a [(b,c)]
+type OptList a b c=[ItemList a b c]
+
+
+
+
+
+
+
