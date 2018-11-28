@@ -9,8 +9,8 @@ module Tools(
 import DataType
 
 next (list1,list2)=((cdr list1),(cdr list2))
-get_opt :: (Eq b)=>ItemList a b c->b->c
-get_opt (ItemList _ list) opt=car(get list opt)
+get_opt :: (Eq b)=>ItemList a b c->b->[c]
+get_opt (ItemList _ list) opt=(get list opt)
 
 car (x:y)=x
 
