@@ -2,11 +2,6 @@ module DataType
 (   
     Exp(..)
    ,ItemList(..)
-   --,OptList
-   --,OptList1(..)
-   --,OptList2(..)
-   --,OptList_All1
-   --,OptList_All2
 )where
 data Exp = Opt [Char] | Exp [Exp] | Num Double | Complex [Exp]
     deriving (Show,Eq)

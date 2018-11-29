@@ -5,7 +5,7 @@ import DataType
 data Exps = Opts [Char] | Exps [Exps] | Nums Double | Begins | Ends
     deriving (Show,Eq)
 
-transfer_final=transfeToExp . transfer
+transfer_final=to_transferToExp . transfer
 
 transfer :: String ->Exps
 transfer x=y
@@ -27,8 +27,15 @@ transferf fromer (Begins:x)=transferf (fromer++[exp]) rest
                         where (exp,rest)=transferf [] x
 transferf former (x:rest)=transferf (former++[x]) rest
 
-transfeToExp :: Exps->Exp
-transfeToExp (Exps (x:[]))=transfeToExp x
+to_transferToExp :: Exps->Exp
+to_transferToExp (Exps x)=Exp (transfeToExp x)
+to_transferToExp (Nums x)=(Num x)
+to_transferToExp (Opts x)=(Opt x)
+
+transfeToExp :: [Exps]->[Exp]
+{-transfeToExp (Exps (x:[]))=transfeToExp x
 transfeToExp (Exps (x:xs))=Exp ((transfeToExp x):(transfeToExp (Exps xs)):[])
 transfeToExp (Nums x)=(Num x)
-transfeToExp (Opts x)=(Opt x)
+transfeToExp (Opts x)=(Opt x)-}
+transfeToExp []=[]
+transfeToExp (x:xs)=(to_transferToExp x):(transfeToExp xs)
