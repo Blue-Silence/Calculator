@@ -2,6 +2,7 @@ module Other_Function(
     headStringIf --判断输入的第一个String是否为第二个String头部
    ,headStringListIf --判断输入的第一个String是否为第二个String List中某个String的头部
    ,getStringPairInString --从第一个String头部取出存在于第二个String List的最长String，与剩余部分组成二元组返回
+   ,add --向ItemList List中添加项(插在小于插入项的项前面或平级项内)
 )where
 
 headStringIf :: String->String->Bool
@@ -22,3 +23,9 @@ getStringPairInString_a former [] _=(former,[])
 getStringPairInString_a former (x:xs) list
     |headStringListIf (former++[x]) list=getStringPairInString_a (former++[x]) xs list
     |otherwise=(former,(x:xs))
+
+add :: (Ord a) [ItemList a b c]->(a,(b,c))->[ItemList a b c]
+add [] (a,(b,c))=[ItemList a [(b,c)]]
+add (ori@(ItemList a [(b,c)]):xs) (x,in@(y,z))
+    |a==x=(ItemList a (in:[(b,c)])):xs
+    |a>x=
