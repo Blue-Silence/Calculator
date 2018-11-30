@@ -4,6 +4,7 @@ module Other_Function(
    ,getStringPairInString --从第一个String头部取出存在于第二个String List的最长String，与剩余部分组成二元组返回
    ,add --向ItemList List中添加项(插在小于插入项的项前面或平级项内)
 )where
+import DataType
 
 headStringIf :: String->String->Bool
 headStringIf [] _ =True
@@ -24,8 +25,9 @@ getStringPairInString_a former (x:xs) list
     |headStringListIf (former++[x]) list=getStringPairInString_a (former++[x]) xs list
     |otherwise=(former,(x:xs))
 
-add :: (Ord a) [ItemList a b c]->(a,(b,c))->[ItemList a b c]
+add :: (Ord a)=>[ItemList a b c]->(a,(b,c))->[ItemList a b c]
 add [] (a,(b,c))=[ItemList a [(b,c)]]
-add (ori@(ItemList a [(b,c)]):xs) (x,in@(y,z))
-    |a==x=(ItemList a (in:[(b,c)])):xs
-    |a>x=
+add (ori@(ItemList a [(b,c)]):xs) (x,(y,z))
+    |a==x=(ItemList a ((y,z):[(b,c)])):xs
+    |a>x=ori:(add xs (x,(y,z)))
+    |a<x=(ItemList a [(b,c)]):ori:xs
