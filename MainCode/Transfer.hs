@@ -15,8 +15,8 @@ transfer1 ('(':xs) list=Begins:(transfer1 xs list)
 transfer1 (')':xs) list=Ends:(transfer1 xs list)
 transfer1 [] _ =[]
 transfer1 input list 
-        |not (nullif (ccar opt))=(Opts (ccar opt)):(transfer1 (ccdr opt) list)
-        |otherwise=(Nums ((ccar . car) nums)) :(transfer1 ((ccdr . car) nums) list)
+        |not (nullif nums)=(Nums ((ccar . car) nums)) :(transfer1 ((ccdr . car) nums) list)
+        |otherwise=(Opts (ccar opt)):(transfer1 (ccdr opt) list)
             where opt=getStringPairInString input list
                   nums=(reads input :: [(Number,String)])
                   ccar (x,_)=x
