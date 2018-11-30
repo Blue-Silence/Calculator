@@ -15,7 +15,6 @@ get_opt :: (Eq b)=>ItemList a b c->b->[c]
 get_opt (ItemList _ list) opt=(get list opt)
 
 car (x:y)=x
-
 cdr (x:y)=y
 nullif []=True
 nullif x=False

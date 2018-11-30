@@ -1,41 +1,38 @@
 module Transfer (
-    transfer_final )where
+    transfer --第一个参数为运算符表，返回Exp类型
+     )where
 
 import DataType
+import Tools
+import Other_Function
 data Exps = Opts [Char] | Exps [Exps] | Nums Double | Begins | Ends
     deriving (Show,Eq)
 
-transfer_final=to_transferToExp . transfer
+transfer list x=(ccar (transferf [] (stringsToExpsList (words x) list)))
+    
+transfer1 :: String->[String]->[Exps]
+transfer1 ('(':xs) list=Begins:(transfer1 xs list)
+transfer1 (')':xs) list=Ends:(transfer1 xs list)
+transfer1 [] _ =[]
+transfer1 input list 
+        |not (nullif (ccar opt))=(Opts (ccar opt)):(transfer1 (ccdr opt) list)
+        |otherwise=(Nums ((ccar . car) nums)) :(transfer1 ((ccdr . car) nums) list)
+            where opt=getStringPairInString input list
+                  nums=(reads input :: [(Number,String)])
+                  ccar (x,_)=x
+                  ccdr (_,y)=y
+ 
+stringsToExpsList :: [String]->[String]->[Exps]
+stringsToExpsList [] _  =[]
+stringsToExpsList (x:xs) list =(transfer1 x list)++(stringsToExpsList xs list)
 
-transfer :: String ->Exps
-transfer x=y
-    where (y,_)=(transferf [] . transferm . words) x
-
-transferm :: [String]->[Exps]
-transferm ("(":x)=Begins:(transferm x)
-transferm (")":x)=Ends:(transferm x)
-transferm []=[]
-transferm (x:y)= let new=reads x ::[(Double,String)] 
-                     get ((x,_):_)=x  in
-    if new==[] then (Opts x):(transferm y)
-    else (Nums (get new)):(transferm y)
-
-transferf :: [Exps]->[Exps]->(Exps,[Exps])
-transferf fromer []=((Exps fromer),[])
-transferf former (Ends:rest)=((Exps former),rest)
+transferf :: [Exp]->[Exps]->(Exp,[Exps])
+transferf [] ((Opts x):[]) =((Opt x),[])
+transferf [] ((Nums x):[]) =((Num x),[])
+transferf fromer []=((Exp fromer),[])
+transferf former (Ends:rest)=((Exp former),rest)
 transferf fromer (Begins:x)=transferf (fromer++[exp]) rest
                         where (exp,rest)=transferf [] x
-transferf former (x:rest)=transferf (former++[x]) rest
+transferf former (x:rest)=transferf (former++[(ccar (transferf [] [x]))]) rest
 
-to_transferToExp :: Exps->Exp
-to_transferToExp (Exps x)=Exp (transfeToExp x)
-to_transferToExp (Nums x)=(Num x)
-to_transferToExp (Opts x)=(Opt x)
-
-transfeToExp :: [Exps]->[Exp]
-{-transfeToExp (Exps (x:[]))=transfeToExp x
-transfeToExp (Exps (x:xs))=Exp ((transfeToExp x):(transfeToExp (Exps xs)):[])
-transfeToExp (Nums x)=(Num x)
-transfeToExp (Opts x)=(Opt x)-}
-transfeToExp []=[]
-transfeToExp (x:xs)=(to_transferToExp x):(transfeToExp xs)
+ccar (x,_)=x

@@ -1,4 +1,4 @@
-module Tools(
+module Other_Function(
     headStringIf --判断输入的第一个String是否为第二个String头部
    ,headStringListIf --判断输入的第一个String是否为第二个String List中某个String的头部
    ,getStringPairInString --从第一个String头部取出存在于第二个String List的最长String，与剩余部分组成二元组返回
