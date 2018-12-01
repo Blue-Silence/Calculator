@@ -1,0 +1,4 @@
+主要代码在MainCode文件夹内
+ValueMain模块为对外接口
+DataType,Other_Function模块为通用模块
+Tools为专用模块

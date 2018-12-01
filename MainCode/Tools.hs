@@ -1,13 +1,14 @@
 module Tools(
     next
    ,get_opt
-   ,get
    ,car
    ,cdr
    ,nullif
+   ,ccar
 )where
 
 import DataType
+import Other_Function
 
 next (list1,list2)=((cdr list1),(cdr list2))
 
@@ -18,13 +19,6 @@ car (x:y)=x
 cdr (x:y)=y
 nullif []=True
 nullif x=False
+ccar (x,_)=x
 
-
-
-get :: (Eq a)=>[(a,b)]->a->[b]
-get [] _=[]
-get ((objname,obj):rest) name
-    |objname==name=[obj]
-    |otherwise=get rest name
-
-    
+ 

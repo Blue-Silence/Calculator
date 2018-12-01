@@ -4,6 +4,7 @@ module Value(
 
 import DataType
 import Tools
+import Other_Function
 
 --value=>value_1or3->before_value_2->value_2->value_1or3
 
@@ -53,7 +54,6 @@ value_2 all optlist (optexp@(Opt opt):x:xs)
     |otherwise=optexp:(value_2 all optlist (x:xs))
         where optget=get optlist opt 
 value_2 all optlist (x:xs)=x:(value_2 all optlist xs)
-
 
 
 

@@ -3,6 +3,7 @@ module Other_Function(
    ,headStringListIf --判断输入的第一个String是否为第二个String List中某个String的头部
    ,getStringPairInString --从第一个String头部取出存在于第二个String List的最长String，与剩余部分组成二元组返回
    ,add --向ItemList List中添加项(插在小于插入项的项前面或平级项内)
+   ,get --从二元组列表中取出输入项所对应的项组成的表，若没有则返回[]
 )where
 import DataType
 
@@ -32,5 +33,9 @@ add (ori@(ItemList a [(b,c)]):xs) (x,(y,z))
     |a>x=ori:(add xs (x,(y,z)))
     |a<x=(ItemList a [(b,c)]):ori:xs
 
+get :: (Eq a)=>[(a,b)]->a->[b]
+get [] _=[]
+get ((objname,obj):rest) name
+    |objname==name=[obj]
+    |otherwise=get rest name
 
-    

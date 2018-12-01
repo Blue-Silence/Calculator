@@ -35,5 +35,5 @@ transferf fromer (Begins:x)=transferf (fromer++[exp]) rest
                         where (exp,rest)=transferf [] x
 transferf former (x:rest)=transferf (former++[(ccar (transferf [] [x]))]) rest
 
-ccar (x,_)=x
+
 
