@@ -10,3 +10,4 @@ data Exp = Opt [Char] | Exp [Exp] | Num Double | Complex [Exp]
 type Number=Double
 
 data ItemList a b c=ItemList a [(b,c)]
+

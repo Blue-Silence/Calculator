@@ -31,3 +31,6 @@ add (ori@(ItemList a [(b,c)]):xs) (x,(y,z))
     |a==x=(ItemList a ((y,z):[(b,c)])):xs
     |a>x=ori:(add xs (x,(y,z)))
     |a<x=(ItemList a [(b,c)]):ori:xs
+
+
+    

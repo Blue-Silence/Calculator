@@ -1,4 +1,6 @@
-module Value(value)where
+module Value(
+    value --接受一个操作符列表和Exp值，返回一个Exp值
+)where
 
 import DataType
 import Tools
@@ -31,9 +33,6 @@ value_1or3 all listnow (x:(Opt opt):y:rest)
         where opt_get=get_opt listnow opt
 value_1or3 all listnow (x:xs)=x:(value_1or3 all listnow xs)
 
---value all listnow (x:rest)=x:(value_cycle all listnow rest)
---20182228 remain value_2 get_mutil_1 trun_mutil_to_Exp before_value_2
-
 get_mutil_1 former []=(former,[])
 get_mutil_1 former ((Opt x):xs)=get_mutil_1 (former++[(Opt x)]) xs
 get_mutil_1 former (x:xs)=((former++[x]),xs)
@@ -54,4 +53,7 @@ value_2 all optlist (optexp@(Opt opt):x:xs)
     |otherwise=optexp:(value_2 all optlist (x:xs))
         where optget=get optlist opt 
 value_2 all optlist (x:xs)=x:(value_2 all optlist xs)
+
+
+
 
